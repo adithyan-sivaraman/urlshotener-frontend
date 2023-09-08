@@ -20,9 +20,9 @@ const Dashboard = () => {
             <h4>Dashboard</h4>
             {urlData.length===0 && (
                 <div className="w-full bg-blue p-4 h-full flex-col flex items-center justify-center border-2">
-                <p className="text-sm lg:text-lg">You have not Shortened any URL</p>
+                <p className="text-base lg:text-xl">You have not Shortened any URL</p>
                 <p 
-                    className="text-sm lg:text-lg">
+                    className="text-base lg:text-xl mt-4">
                     Click 
                     <FontAwesomeIcon 
                         className="px-4"

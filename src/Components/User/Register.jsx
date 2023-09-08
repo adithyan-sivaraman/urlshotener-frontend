@@ -17,7 +17,8 @@ const RegisterScreen = () => {
     }
     const [formData, setFormData] = useState(initialValues)
     const [passwordType, setPasswordType] = useState(true)
-    const [ruleVisible, setRulesVisible] = useState(false)
+    const [ruleVisible, setRulesVisible] = useState(false);
+    const [spinner,setSpinner] = useState(false);
     const navigate = useNavigate();
     const { dialogOpen, setDialogOpen, setDialogText } = UserContext();
     const handleSubmit = async (e) => {
@@ -30,7 +31,7 @@ const RegisterScreen = () => {
             setDialogText("Please enter a valid password")
             return;
         }
-
+        setSpinner(true)
         const request = await fetch(`${apiEndpoint}/register`, {
             method: 'POST',
             headers: {
@@ -39,7 +40,7 @@ const RegisterScreen = () => {
             body: JSON.stringify(formData),
         });
         const response = await request.json();
-
+        setSpinner(false)
         if (request.status === 500) {
             setDialogOpen(true)
             setDialogText("Unable to process your request. Please try again")
@@ -148,9 +149,10 @@ const RegisterScreen = () => {
                         <span className="">1 Special Character ( ! @ # $ & * )</span>
                     </div>
                 )}
-
+                {spinner && <div className="spinner"></div>}
+            
                 <button
-                 
+                    disabled={spinner}
                     className="btn btn-grad mt-4 w-full  tracking-wider  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="submit">
                     Register

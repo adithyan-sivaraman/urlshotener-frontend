@@ -11,7 +11,8 @@ const LoginScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordType, setPasswordType] = useState(true);
-    const {dialogOpen, setDialogOpen, setDialogText,setUrlData } = UserContext()
+    const {dialogOpen, setDialogOpen, setDialogText,setUrlData } = UserContext();
+    const [spinner,setSpinner] = useState(false);
     const navigate = useNavigate();
 
     const handleInput = (e) => {
@@ -21,6 +22,7 @@ const LoginScreen = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setSpinner(true)
         const request = await fetch(`${apiEndpoint}/login`, {
             method: 'POST',
             headers: {
@@ -29,7 +31,7 @@ const LoginScreen = () => {
             body: JSON.stringify({ email: email, password: password }),
         });
         const response = await request.json();
-       
+        setSpinner(false)
         if (request.status === 500) {
             setDialogOpen(true)
             setDialogText("Unable to process your request. Please try again")
@@ -88,6 +90,7 @@ const LoginScreen = () => {
                         name="email"
                         id="email"
                         type="text"
+                        required
                         placeholder="Last Name" />
                 </div>
                 <div className="mt-4 flex flex-row w-full items-center relative ">
@@ -97,6 +100,7 @@ const LoginScreen = () => {
                         value={password}
                         name="password"
                         id="password"
+                        required
                         type={passwordType ? 'password' : 'text'}
                         placeholder="******************" />
                     <FontAwesomeIcon
@@ -112,6 +116,12 @@ const LoginScreen = () => {
                         Forgot Password?
                     </p>
                 </div>
+
+               { spinner && (
+                    <div className="flex w-full justify-center">
+                    <div className="spinner"></div>
+                    </div>)
+                }
 
                 <button
                     className="select-none btn btn-grad mt-4 w-full  tracking-wider  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

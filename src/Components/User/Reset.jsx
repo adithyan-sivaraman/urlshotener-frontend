@@ -21,6 +21,7 @@ const ResetScreen = () => {
     const [error, setError] = useState(false);
     const [conformPasswordType, setConfirmPasswordType] = useState(true)
     const { dialogOpen, setDialogOpen, setDialogText } = UserContext()
+    const [spinner,setSpinner] = useState(false);
     const navigate = useNavigate();
     const [params,] = useSearchParams();
     const token = params.get('token') || "";
@@ -28,6 +29,7 @@ const ResetScreen = () => {
     const verifyToken = async () => {
 
         if (token) {
+            setSpinner(true);
             const request = await fetch(`${apiEndpoint}/verify`, {
                 method: 'POST',
                 headers: {
@@ -36,7 +38,7 @@ const ResetScreen = () => {
                 body: JSON.stringify({ token: token }),
             });
             const response = await request.json();
-
+            setSpinner(false);
             if (response.message === "valid link") {
                 setResetForm(true)
                 setFormData({ ...formData, email: response.email });
@@ -86,7 +88,7 @@ const ResetScreen = () => {
             setDialogText("Please enter a valid password")
             return;
         }
-
+        setSpinner(true)
         const request = await fetch(`${apiEndpoint}/reset`, {
             method: 'POST',
             headers: {
@@ -94,7 +96,7 @@ const ResetScreen = () => {
             },
             body: JSON.stringify({ email: formData.email, password: formData.password, token: token }),
         });
-
+        setSpinner(false)
         const response = await request.json();
         if (request.status === 500) {
             setDialogOpen(true)
@@ -128,7 +130,7 @@ const ResetScreen = () => {
         return <Navigate to={'/dashboard'} replace />
     }
     return (
-        <div className="container select-none">
+        <div className="container select-none ">
             {dialogOpen && <AlertDialog />}
             <form
                 onSubmit={handleSubmit}
@@ -195,6 +197,14 @@ const ResetScreen = () => {
                         <span className="">1 Special Character ( ! @ # $ & * )</span>
                     </div>
                 )}
+                
+                {spinner && (
+                    <div className="flex w-full justify-center">
+                    <div className="spinner"></div>
+                    </div>)
+                }
+                
+                
                 <button
                     disabled={error !== false}
                     className="reset-btn btn btn-grad"
