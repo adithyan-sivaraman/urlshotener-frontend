@@ -18,9 +18,9 @@ const ResetScreen = () => {
     const [formData, setFormData] = useState(initialValues)
     const [resetForm, setResetForm] = useState(false);
     const [passwordType, setPasswordType] = useState(true)
-    const [error,setError] = useState(false);
+    const [error, setError] = useState(false);
     const [conformPasswordType, setConfirmPasswordType] = useState(true)
-    const {dialogOpen, setDialogOpen, setDialogText } = UserContext()
+    const { dialogOpen, setDialogOpen, setDialogText } = UserContext()
     const navigate = useNavigate();
     const [params,] = useSearchParams();
     const token = params.get('token') || "";
@@ -36,7 +36,7 @@ const ResetScreen = () => {
                 body: JSON.stringify({ token: token }),
             });
             const response = await request.json();
-            
+
             if (response.message === "valid link") {
                 setResetForm(true)
                 setFormData({ ...formData, email: response.email });
@@ -55,14 +55,14 @@ const ResetScreen = () => {
     useEffect(() => {
         verifyToken();
     }, [token])
-    
-    useEffect(()=>{
-        window.addEventListener('keydown', (e)=>{
-            if(e.key==="Escape" && dialogOpen){
+
+    useEffect(() => {
+        window.addEventListener('keydown', (e) => {
+            if (e.key === "Escape" && dialogOpen) {
                 setDialogOpen(false)
             }
         })
-    },[dialogOpen,setDialogOpen])
+    }, [dialogOpen, setDialogOpen])
 
     const handleInput = (e) => {
         const { name, value } = e.target;
@@ -70,7 +70,7 @@ const ResetScreen = () => {
             ...formData,
             [name]: value,
         })
-        
+
         if (name === 'confirmpwd' && formData.password !== value) {
             setError("Passwords not matching");
         } else if (name === 'confirmpwd' && formData.password === value) {
@@ -81,7 +81,7 @@ const ResetScreen = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        if(formData.password && !regex.test(formData.password)){
+        if (formData.password && !regex.test(formData.password)) {
             setDialogOpen(true)
             setDialogText("Please enter a valid password")
             return;
@@ -92,11 +92,11 @@ const ResetScreen = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email: formData.email,password: formData.password,token:token}),
+            body: JSON.stringify({ email: formData.email, password: formData.password, token: token }),
         });
 
         const response = await request.json();
-        if(request.status ===500){
+        if (request.status === 500) {
             setDialogOpen(true)
             setDialogText("Unable to process your request. Please try again")
             return;
@@ -116,7 +116,7 @@ const ResetScreen = () => {
             setDialogText("Password reset successfully! Please login with new password")
             setTimeout(() => {
                 navigate('/')
-            },2000);
+            }, 2000);
             return;
         }
         setDialogOpen(true)
@@ -129,7 +129,7 @@ const ResetScreen = () => {
     }
     return (
         <div className="container select-none">
-        {dialogOpen && <AlertDialog />}
+            {dialogOpen && <AlertDialog />}
             <form
                 onSubmit={handleSubmit}
                 className="reset-form">
@@ -184,22 +184,24 @@ const ResetScreen = () => {
                         />
                     </div>
                 )}
-                
+
                 {error && <span className="error-message">* {error}</span>}
-                <div className="pwd-rules">
-                <span className="">Password must be atleast 8 characters and atleast</span>
-                <span className="">1 Capital Letter</span>
-                <span className="">1 Small Letter</span>
-                <span className="">1 Number</span>
-                <span className="">1 Special Character ( ! @ # $ & * )</span>
-            </div>
+                {resetForm && (
+                    <div className="pwd-rules">
+                        <span className="">Password must be atleast 8 characters and atleast</span>
+                        <span className="">1 Capital Letter</span>
+                        <span className="">1 Small Letter</span>
+                        <span className="">1 Number</span>
+                        <span className="">1 Special Character ( ! @ # $ & * )</span>
+                    </div>
+                )}
                 <button
-                    disabled={error!==false}
+                    disabled={error !== false}
                     className="reset-btn btn btn-grad"
                     type="submit">
                     Reset
                 </button>
-                
+
                 {!resetForm && (
                     <p className="login-text"
                         onClick={() => navigate('/')}>
