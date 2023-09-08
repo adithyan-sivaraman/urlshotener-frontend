@@ -125,8 +125,7 @@ const RegisterScreen = () => {
                     <FontAwesomeIcon icon={faLock} className="relative-icon" />
                     <input className="form-input"
                         onInput={handleInput}
-                        onFocus={() => setRulesVisible(!ruleVisible)}
-
+                        onFocus={() => setRulesVisible(true)}
                         required
                         value={formData.password}
                         name="password"
