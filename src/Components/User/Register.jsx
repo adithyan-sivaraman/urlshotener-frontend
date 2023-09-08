@@ -31,7 +31,7 @@ const RegisterScreen = () => {
             return;
         }
 
-        const request = await fetch(`${apiEndpoint}}/register`, {
+        const request = await fetch(`${apiEndpoint}/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
