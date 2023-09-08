@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@tailwind base;
+@tailwind components;
+
+@layer components {
+  .td-none {
+    @apply w-full p-2 bg-blue-500 text-white text-center border border-white
+  }
+
+  h4{
+    @apply text-base sm:text-lg lg:text-xl font-bold py-2 tracking-widest uppercase text-center
+  }
+
+  .view-url {
+    @apply px-4 py-2 grow flex flex-col bg-white overflow-auto
+  }
+
+  .tr-list{
+    @apply text-center text-sm lg:text-lg bg-gray-500 text-white
+  }
+
+  .view-url-parent {
+    @apply w-full h-full flex flex-col sm:flex-row select-none
+  }
+
+  .reset-btn {
+    @apply relative mt-4 w-full tracking-wider text-white font-bold py-2 px-4 rounded
+  }
+
+  .form-input {
+    @apply shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight w-full
+  }
+
+  .icon {
+    @apply shadow appearance-none text-xl border py-2 px-3 rounded
+  }
+
+  .reset-form {
+    @apply bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4
+  }
+
+  .lock-icon {
+    @apply w-full lock text-center
+  }
+
+  .password-icon {
+    @apply absolute right-3 top-2 text-xl cursor-pointer
+  }
+
+  .relative-icon {
+    @apply shadow appearance-none text-xl border py-2 px-3 rounded
+  }
+
+  .input-group {
+    @apply mt-4 flex flex-row w-full
+  }
+
+  .error-message {
+    @apply text-red-900 font-bold italic block text-sm lg:text-base mt-1
+  }
+
+  .pwd-rules {
+    @apply mt-4 flex flex-col w-full relative
+  }
+
+  .pwd-rules span:first-child {
+    @apply text-sm font-semibold tracking-wide
+  }
+
+  .pwd-rules span:not(:first-child) {
+    @apply text-sm tracking-wide
+  }
+
+  .login-text {
+    @apply text-center mt-4 tracking-wider text-base font-bold text-gray-500 cursor-pointer
+  }
+
+  .reset-header {
+    @apply text-center text-xl font-bold py-3
+  }
+}
+
+
+@tailwind utilities;
+
+
+body {
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  font-family:  'Lato', sans-serif;
+  background-color: #21D4FD;
+  background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+}
+
+.form {
+  background-color: #ffb6c1;
+}
+
+#root {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  max-width: none !important;
+  text-align: left;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.fade-out {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-out.hidden {
+  opacity: 0;
+  pointer-events: none;
+  /* To prevent interaction with hidden content */
+  max-height: 0;
+  /* Optional: Set max-height to ensure content doesn't occupy space when hidden */
+}
+
+.fade-out-and-move {
+  animation: fadeOutAndMove 1s ease-in-out forwards;
+}
+
+@keyframes fadeOutAndMove {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.strikethrough {
+  animation: strike 0.5s ease;
+}
+
+@keyframes strike {
+  0% {
+    text-decoration: none;
+  }
+
+  100% {
+    text-decoration: line-through;
+  }
+}
+
+.dialog {
+  background-color: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  align-items: center;
+  height: 160px;
+}
+
+
+.dialog-url {
+  background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  align-items: center;
+  height: 420px;
+}
+
+.dialog-parent {
+  z-index: 60;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  padding: 0px 5px 0px 5px !important;
+  width: 100%;
+  max-width: 420px !important;
+}
+
+.lock {
+  font-size: 70px;
+}
+
+
+.btn-grad {
+  background-image: linear-gradient(to right, #DA22FF 0%, #9733EE 51%, #DA22FF 100%);
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+
+}
+
+.btn-grad:hover {
+  background-position: right center;
+  /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+.w-calc {
+  width: calc(100% - 144px);
+}
+
+.para {
+  width: calc(100% - 100px);
+}
+
+.w10 {
+  width: 10% !important;
+}
+
+.w15 {
+  width: 15% !important;
+}
+
+.w70 {
+  width: 70% !important;
+}
+
+.btn-error {
+  display: none !important;
+  position: absolute !important;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+  padding: 4px;
+  margin-top: 15px;
+}
+
+.reset-btn:hover .btn-error {
+  display: block !important;
+}
+
+.url-grad {
+  background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+}
+
+canvas{
+  display: block !important;
+  background-color: #9BD0F5;
+  margin-top: 10px;
+}
+
+canvas:nth-child(1){
+  width: 100% !important;
+  height: 520px !important;
+}
+
+canvas:nth-child(2){
+  width: 500px !important;
+  height: 500px !important;
+}
+
+
+.tooltip{
+  display: none;
+}
+
+input[type="month"]:hover + .tooltip{
+  display: block !important;
+  position: absolute;
+  border-radius: 10px;
+  left: 70%;
+  border: 10px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(244 114 182 / var(--tw-bg-opacity));
+  letter-spacing: 0.05em;
+  padding: 8px;
+  color:white;
+  font-weight: bold;
+  }
+
+  .spinner{
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 30px;
+    height:30px;
+    border:4px solid yellow;
+    border-radius: 50%;
+    border-top: 4px solid blue;
+    border-bottom: 4px solid blue;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin{
+    0%{
+      transform: rotate(0deg);
+    }
+    100%{
+      transform: rotate(360deg);
+    }
+  }
