@@ -91,7 +91,7 @@ const LoginScreen = () => {
                         id="email"
                         type="text"
                         required
-                        placeholder="Last Name" />
+                        placeholder="Email Address" />
                 </div>
                 <div className="mt-4 flex flex-row w-full items-center relative ">
                     <FontAwesomeIcon icon={faLock} className="shadow appearance-none text-xl border py-2 px-3 rounded" />
